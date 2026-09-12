@@ -30,39 +30,27 @@ if investimento:
 
  
 
+import streamlit as st
+import pandas as pd
+from sklearn.linear_model import LinearRegression
 
+# carregar os dados
+dados_vendas = pd.read_csv('vendas.csv')
 
+print(dados_vendas)
 
+st.write(dados_vendas)
 
+# treinar os dados
 
+X = dados_vendas[['mes']]
+y = dados_vendas['vendas']
 
+model = LinearRegression().fit(X, y)
 
+# prever as vendas de setembro
 
+previsao = model.predict([[9]])
 
-
-
-
-
-
-
-
-
-
-
-
-
-import streamlit as st    # interface grafica 
-import pandas as pd       # tratamento de dados
-from sklearn.linear_model import LinearRegression # o tipo de treinamento do modelo
-
-
-
-
-dados =  pd.read_csv('vendas.csv')
-
-
-df  =  pd.DataFrame(dados)
-
-
-print(df)
-
+st.write('Previsão de vendas para setembro:')
+st.write(f"R$ {previsao[0]:,.2f}")
